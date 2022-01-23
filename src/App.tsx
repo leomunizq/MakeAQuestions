@@ -9,12 +9,7 @@ import { AuthContextProvider } from './contexts/AuthContext';
 import './styles/auth.scss';
 
 
-
-
-
 function App() {
-
-
   return (
 <BrowserRouter>
 <AuthContextProvider>
