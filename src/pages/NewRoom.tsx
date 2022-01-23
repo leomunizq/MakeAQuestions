@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FormEvent, useState } from 'react'
 
 import illustrationImg from '../assets/images/illustration.svg'
@@ -11,11 +11,14 @@ import { useAuth } from '../hooks/useAuth'
 
 
 export function NewRoom(){
+  
+  const navigate = useNavigate();
   const { user } = useAuth()
 
   const [newRoom, setNewRoom] = useState('')
 
   async function handleCreateRoom(event:FormEvent) {
+    
     event.preventDefault();
 
 if (newRoom.trim() ===''){
@@ -23,11 +26,15 @@ if (newRoom.trim() ===''){
 }    
 const roomRef = database.ref('rooms')
 
-const firebase = await roomRef.push({
+const firebaseRoom = await roomRef.push({
   title: newRoom,
   authorId: user?.id
 })
+
+navigate('/rooms/${firebaseRoom.key}')
   }
+
+
 
   return (
     <div id="page-auth">

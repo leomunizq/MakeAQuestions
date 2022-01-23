@@ -25,6 +25,10 @@ export function Home(){
 
   }
 
+  async function handleJoinRoom(){
+    
+  }
+
   return (
     <div id="page-auth">
       <aside>
