@@ -1,7 +1,19 @@
 
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
+
+import { Home } from './pages/Home';
+import { NewRoom } from './pages/NewRoom';
+
+import './styles/auth.scss';
+
 function App() {
   return (
-    <h1>Hello World</h1>
+<BrowserRouter>
+<Routes>
+<Route path="/" element={<Home />} /> 
+<Route path="/rooms/new" element={<NewRoom />}  />
+</Routes>
+</BrowserRouter>
   );
 }
 
