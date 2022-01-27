@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
+import { database } from '../services/firebase';
 
 import '../styles/room.scss'
 
@@ -18,22 +19,31 @@ const [newQuestion, setNewQuestion] = useState('');
 
 const roomId = params.id;
 
-async function handleSandQuestion() {
-if (newQuestion.trim()===''){
-  return;
-}
-if (!user){
-  //usuarios nao autenticados nao tem permissao para perguntar
-  throw new Error('You must be logged in')
-}
-const question = {
-  content: newQuestion,
-  author: {
-    name: user?.name,
+async function handleSendQuestion(event: FormEvent) {
+    event.preventDefault();
 
+    if (newQuestion.trim() === '') {
+      return;
+    }
+
+    if (!user) {
+      throw new Error('You must be logged in');
+    }
+
+    const question = {
+      content: newQuestion,
+      author: {
+        name: user.name,
+        avatar: user.avatar,
+      },
+      isHighlighted: false,
+      isAnswered: false
+    };
+
+    await database.ref(`rooms/${roomId}/questions`).push(question);
+
+    setNewQuestion('');
   }
-}
-}
 
 
   return(
@@ -49,14 +59,21 @@ const question = {
           <h1>Sala React</h1>
           <span> 4 pergunta(s)</span> 
         </div>
-        <form>
+        <form onSubmit={handleSendQuestion}>
           <textarea 
           placeholder="O que voce quer perguntar?"
           onChange={event => setNewQuestion(event.target.value)}
           value={newQuestion}/>
           <div className="form-footer">
+            {user} ? (
+              <div className="user-info">
+                <img src={user?.avatar} alt={user?.name} />
+                <span>{user?.name}</span>
+              </div>
+            ) : (
             <span>para enviar uma pergunta, <button>faca login</button>.</span>
-            <Button type="submit">Enviar pergunta</Button>
+            )
+            <Button type="submit" disabled={!user}>Enviar pergunta</Button>
           </div>
         </form>
 
