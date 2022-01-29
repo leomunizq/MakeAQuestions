@@ -8,6 +8,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 import deleteImg from '../assets/images/delete.svg'
+import checkImg from '../assets/images/check.svg'
+import answerImg from '../assets/images/answer.svg'
 
 import '../styles/room.scss'
 
@@ -45,6 +47,20 @@ async function handleDeleteQuestion(questionId: string) {
   }
 }
 
+async function handleCheckQuestionAsAnswered(questionId: string){
+  await database.ref(`rooms/${roomId}/questions/${questionId}`).update({ 
+isAnswered: true,
+  });
+
+}
+
+async function handleHighlightQuestion(questionId: string){
+  await database.ref(`rooms/${roomId}/questions/${questionId}`).update({ 
+    isHighlighted: true,
+  });
+  
+}
+
   return(
     <div id="page-room">
       <header>
@@ -70,13 +86,26 @@ async function handleDeleteQuestion(questionId: string) {
             key={questions.id}
             content={questions.content}
             author={questions.author}
+            isAnswered={questions.isAnswered}
+            isHighlighted={questions.isHighlighted}
             >
+              <button 
+              type="button"
+              onClick= {() => handleCheckQuestionAsAnswered(questions.id)}
+              >
+                <img src={checkImg} alt="Check Question" />
+              </button>
+              <button 
+              type="button"
+              onClick= {() => handleHighlightQuestion(questions.id)}
+              >
+                <img src={answerImg} alt="Highlight the Question." />
+              </button>
               <button 
               type="button"
               onClick= {() => handleDeleteQuestion(questions.id)}
               >
                 <img src={deleteImg} alt="Delete Question" />
-
               </button>
             </Question>
           )

@@ -8,6 +8,14 @@
     margin-top: 8px;
   }
 
+  &.answere{
+
+  }
+
+  &.highlight{
+    
+  }
+
   p {
     color: #29292e;
   }
@@ -34,6 +42,10 @@
         font-weight: 500;
         font-size: 14px;
       }
+    }
+    > div {
+      display: flex;
+      gap: 16px;
     }
     
     button {
