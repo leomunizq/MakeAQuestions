@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Questions';
@@ -26,8 +26,18 @@ const {user} = useAuth();
 const params = useParams<RoomParams>();
 const [newQuestion, setNewQuestion] = useState('');
 const roomId = params.id;
+const navigate = useNavigate();
 
 const {questions, title} = useRoom(roomId!);
+
+
+async function handleEndRoom(){
+  database.ref(`rooms/${roomId}`).update({
+    endedAt: new Date(),
+  })
+  navigate('/');
+}
+
 
 async function handleDeleteQuestion(questionId: string) {
   if (window.confirm('Are you sure you want to delete')){
@@ -42,7 +52,7 @@ async function handleDeleteQuestion(questionId: string) {
           <img src={logoImg} alt="logo" />
          <div>
          <RoomCode code={roomId} />
-          <Button isOutlined>Encerrar Sala</Button>
+          <Button isOutlined onClick={handleEndRoom}>Encerrar Sala</Button>
          </div>
         </div>
       </header>

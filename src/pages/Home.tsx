@@ -40,6 +40,10 @@ export function Home(){
       alert('This room does not exist.');
       return;
     }
+    if (roomRef.val().endedAt){
+      alert('Room already closed.');
+      return;
+    }
     navigate(`rooms/${roomCode}`)
     
   }
