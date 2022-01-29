@@ -7,6 +7,7 @@ import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
+import deleteImg from '../assets/images/delete.svg'
 
 import '../styles/room.scss'
 
@@ -28,36 +29,11 @@ const roomId = params.id;
 
 const {questions, title} = useRoom(roomId!);
 
-
-
-
-
-async function handleSendQuestion(event: FormEvent) {
-    event.preventDefault();
-
-    if (newQuestion.trim() === '') {
-      return;
-    }
-
-    if (!user) {
-      throw new Error('You must be logged in');
-    }
-
-    const question = {
-      content: newQuestion,
-      author: {
-        name: user.name,
-        avatar: user.avatar,
-      },
-      isHighlighted: false,
-      isAnswered: false
-    };
-
-    await database.ref(`rooms/${roomId}/questions`).push(question);
-
-    setNewQuestion('');
+async function handleDeleteQuestion(questionId: string) {
+  if (window.confirm('Are you sure you want to delete')){
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
   }
-
+}
 
   return(
     <div id="page-room">
@@ -84,7 +60,15 @@ async function handleSendQuestion(event: FormEvent) {
             key={questions.id}
             content={questions.content}
             author={questions.author}
-            />
+            >
+              <button 
+              type="button"
+              onClick= {() => handleDeleteQuestion(questions.id)}
+              >
+                <img src={deleteImg} alt="Delete Question" />
+
+              </button>
+            </Question>
           )
         })}
         </div>
