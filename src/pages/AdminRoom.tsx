@@ -64,7 +64,10 @@ async function handleSendQuestion(event: FormEvent) {
       <header>
         <div className="content">
           <img src={logoImg} alt="logo" />
-          <RoomCode code={roomId} />
+         <div>
+         <RoomCode code={roomId} />
+          <Button isOutlined>Encerrar Sala</Button>
+         </div>
         </div>
       </header>
       <main>
@@ -72,23 +75,7 @@ async function handleSendQuestion(event: FormEvent) {
           <h1>Sala {title}</h1>
           { questions.length > 0 &&  <span> {questions.length} pergunta(s)</span>  }
         </div>
-        <form onSubmit={handleSendQuestion}>
-          <textarea 
-          placeholder="O que voce quer perguntar?"
-          onChange={event => setNewQuestion(event.target.value)}
-          value={newQuestion}/>
-          <div className="form-footer">
-            {user ? (
-              <div className="user-info">
-                <img src={user?.avatar} alt={user?.name} />
-                <span>{user?.name}</span>
-              </div>
-            ) : (
-            <span>par enviar uma pergunta, <button>faca login</button>.</span>
-            )}
-            <Button type="submit" disabled={!user}>Enviar pergunta</Button>
-          </div>
-        </form>
+        
 
         <div className="question-list">
         {questions.map(questions => {
