@@ -19,7 +19,7 @@ export function Question({content, author, children, isAnswered = false, isHighl
     <div className={cx(
       'question',
       {answered: isAnswered},
-      {highlighted: isHighlighted}
+      {highlighted: isHighlighted && !isAnswered}
     )}>
       <p>{content}</p>
       <footer>

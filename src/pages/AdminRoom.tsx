@@ -89,6 +89,8 @@ async function handleHighlightQuestion(questionId: string){
             isAnswered={questions.isAnswered}
             isHighlighted={questions.isHighlighted}
             >
+              {!questions.isAnswered && (
+                <>
               <button 
               type="button"
               onClick= {() => handleCheckQuestionAsAnswered(questions.id)}
@@ -101,6 +103,8 @@ async function handleHighlightQuestion(questionId: string){
               >
                 <img src={answerImg} alt="Highlight the Question." />
               </button>
+              </>
+              )}
               <button 
               type="button"
               onClick= {() => handleDeleteQuestion(questions.id)}

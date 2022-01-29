@@ -109,7 +109,7 @@ if (likeId) {
             isAnswered={questions.isAnswered}
             isHighlighted={questions.isHighlighted}
             >
-
+              {!questions.isAnswered && (
             <button
             className={`like-button ${questions.likeId ? 'liked' : ''}`}
             type="button"
@@ -122,6 +122,7 @@ if (likeId) {
 </svg>
 
             </button>
+              )}
             </Question>
           )
         })}
