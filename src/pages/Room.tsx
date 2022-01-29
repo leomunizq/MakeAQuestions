@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
@@ -8,6 +8,28 @@ import { database } from '../services/firebase';
 
 import '../styles/room.scss'
 
+type FirebaseQuestions = Record<string, {
+  author: {
+    name: string,
+    avatar: string
+  }
+  content: string,
+  isAnswered: boolean,
+  isHighlighted: boolean;
+}>
+
+type Question = {
+  id: string;
+  author: {
+    name: string,
+    avatar: string
+  }
+  content: string,
+  isAnswered: boolean,
+  isHighlighted: boolean;
+
+}
+
 type RoomParams = {
   id: string;
 }
@@ -16,8 +38,31 @@ export function Room(){
   const {user} = useAuth();
 const params = useParams<RoomParams>();
 const [newQuestion, setNewQuestion] = useState('');
+const [questions, setQuestion] = useState<Question[]>([]);
+const [title, setTitle] = useState('');
 
 const roomId = params.id;
+
+useEffect(() => {
+const roomRef = database.ref(`rooms/${roomId}`);
+
+roomRef.once('value', room => {
+  const databaseRoom = room.val();
+  const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+
+  const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
+    return {
+      id: key,
+      content: value.content,
+      author: value.author,
+      isHighlighted: value.isHighlighted,
+      isAnswered: value.isAnswered,
+    }
+  })
+  setTitle(databaseRoom.title)
+  setQuestion(parsedQuestions)
+})
+}, []);
 
 async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -56,8 +101,8 @@ async function handleSendQuestion(event: FormEvent) {
       </header>
       <main>
         <div className="room-title">
-          <h1>Sala React</h1>
-          <span> 4 pergunta(s)</span> 
+          <h1>Sala {title}</h1>
+          { questions.length > 0 &&  <span> {questions.length} pergunta(s)</span>  }
         </div>
         <form onSubmit={handleSendQuestion}>
           <textarea 
@@ -76,6 +121,7 @@ async function handleSendQuestion(event: FormEvent) {
             <Button type="submit" disabled={!user}>Enviar pergunta</Button>
           </div>
         </form>
+        {JSON.stringify(questions)}
 
       </main>
     
