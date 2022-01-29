@@ -65,14 +65,14 @@ async function handleSendQuestion(event: FormEvent) {
           onChange={event => setNewQuestion(event.target.value)}
           value={newQuestion}/>
           <div className="form-footer">
-            {user} ? (
+            {user ? (
               <div className="user-info">
                 <img src={user?.avatar} alt={user?.name} />
                 <span>{user?.name}</span>
               </div>
             ) : (
-            <span>para enviar uma pergunta, <button>faca login</button>.</span>
-            )
+            <span>par enviar uma pergunta, <button>faca login</button>.</span>
+            )}
             <Button type="submit" disabled={!user}>Enviar pergunta</Button>
           </div>
         </form>
