@@ -78,12 +78,12 @@ if (likeId) {
       </header>
       <main>
         <div className="room-title">
-          <h1>Sala {title}</h1>
-          { questions.length > 0 &&  <span> {questions.length} pergunta(s)</span>  }
+          <h1>Room {title}</h1>
+          { questions.length > 0 &&  <span> {questions.length} question(s)</span>  }
         </div>
         <form onSubmit={handleSendQuestion}>
           <textarea 
-          placeholder="O que voce quer perguntar?"
+          placeholder="What do you want to ask?"
           onChange={event => setNewQuestion(event.target.value)}
           value={newQuestion}/>
           <div className="form-footer">
@@ -93,9 +93,9 @@ if (likeId) {
                 <span>{user?.name}</span>
               </div>
             ) : (
-            <span>par enviar uma pergunta, <button>faca login</button>.</span>
+            <span>to send a question <button>log in</button>.</span>
             )}
-            <Button type="submit" disabled={!user}>Enviar pergunta</Button>
+            <Button type="submit" disabled={!user}>Send question</Button>
           </div>
         </form>
 
@@ -129,7 +129,8 @@ if (likeId) {
         </div>
 
       </main>
-    
+    <br></br>    <br></br>
+
     </div>
   
   )

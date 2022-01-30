@@ -52,25 +52,25 @@ export function Home(){
     <div id="page-auth">
       <aside>
         <img src={illustrationImg} alt="Ilustracao simbolizando perguntas e respostas" />
-        <strong> Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as duvidas da sua audiencia em tempo real</p>
+        <strong> Create live Q&amp;A rooms</strong>
+        <p>Answer your audience's questions in real time.</p>
       </aside>
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Make Questions" />
           <button onClick={handleCreateRoom} className="create-room">
-            <img src={googleIconImg} alt="Logo do Google" />
-            Crie sua sala com o Google
+            <img src={googleIconImg} alt="Logo Google" />
+            Create your room with Google
           </button>
-          <div className="separator"> ou entre em uma sala</div>
+          <div className="separator"> or enter a room</div>
           <form onSubmit={handleJoinRoom}>
             <input 
             type="text"
-            placeholder="Digite o codigo da sala"
+            placeholder="Enter room code"
             onChange={event => setRoomCode(event.target.value )}
             value={roomCode}
             />
-            <Button type="submit">Entrar na sala</Button>
+            <Button type="submit">Enter the room</Button>
           </form>
         </div>
       </main>

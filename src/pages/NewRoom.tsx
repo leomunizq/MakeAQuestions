@@ -40,23 +40,23 @@ navigate(`/rooms/${firebaseRoom.key}`);
     <div id="page-auth">
       <aside>
         <img src={illustrationImg} alt="Ilustracao simbolizando perguntas e respostas" />
-        <strong> Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as duvidas da sua audiencia em tempo real</p>
+        <strong>Create live Q&amp;A rooms</strong>
+        <p>Answer your audience's questions in real time.</p>
       </aside>
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Make Questions" />
-          <h2>Criar uma nova sala</h2>
+          <h2>Create a new room</h2>
           <form onSubmit={handleCreateRoom}>
             <input 
             type="text"
-            placeholder="Nome da sala"
+            placeholder="Room name"
             onChange={event => setNewRoom(event.target.value)}
             value= {newRoom}
             />
-            <Button type="submit">Criar sala</Button>
+            <Button type="submit">Create room</Button>
           </form>
-          <p>Quer entrar em uma sala existente? <Link to="/">Clique aqui</Link></p>
+          <p>Want to join an existing room? <Link to="/">Click here</Link></p>
         </div>
       </main>
     </div>

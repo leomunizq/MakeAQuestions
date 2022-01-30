@@ -68,14 +68,14 @@ async function handleHighlightQuestion(questionId: string){
           <img src={logoImg} alt="logo" />
          <div>
          <RoomCode code={roomId} />
-          <Button isOutlined onClick={handleEndRoom}>Encerrar Sala</Button>
+          <Button isOutlined onClick={handleEndRoom}>Close room</Button>
          </div>
         </div>
       </header>
       <main>
         <div className="room-title">
-          <h1>Sala {title}</h1>
-          { questions.length > 0 &&  <span> {questions.length} pergunta(s)</span>  }
+          <h1>Room {title}</h1>
+          { questions.length > 0 &&  <span> {questions.length} Question(s)</span>  }
         </div>
         
 
