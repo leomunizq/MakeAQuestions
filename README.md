@@ -22,6 +22,13 @@ Site with the purpose of facilitating communication between the content creator 
 * TypeScript;
 * Firebase;
 
+## 🔖 Layout
+
+In the links below you will find the layout of the web project. Remembering that you need to have an account on [Figma](http://figma.com/) to access it.
+
+- [Layout Web](https://www.figma.com/file/htCsbjbFwoEk39sNe2ee9I/Make-Ask?node-id=45%3A3279)
+
+
 
 ## :rocket: Deploy
 https://makeaquestions.web.app/
